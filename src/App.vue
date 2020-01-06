@@ -1,24 +1,40 @@
 <template>
-  <img src="./logo.png">
+  <img src="./logo.png" />
   <h1>Hello Vue 3!</h1>
-  <button @click="inc">Clicked {{ count }} times.</button>
+  <ul>
+    <li>
+      <router-link to="/">/</router-link>
+    </li>
+    <li>
+      <router-link to="/users/1">/users/1</router-link>
+    </li>
+    <li>
+      <router-link :to="nextUserLink">{{ nextUserLink }}</router-link>
+    </li>
+  </ul>
+  <router-view></router-view>
+  <hr />
+  <pre>{{ currentLocation }}</pre>
 </template>
 
 <script>
-import { ref } from 'vue'
+import { inject, computed } from 'vue'
 
 export default {
   setup() {
-    const count = ref(0)
-    const inc = () => {
-      count.value++
-    }
+    const router = inject('router')
+    const currentLocation = computed(() => {
+      const { matched, ...rest } = router.currentRoute.value
+      return rest
+    })
+    const nextUserLink = computed(
+      () =>
+        '/users/' +
+        String((Number(router.currentRoute.value.params.id) || 0) + 1)
+    )
 
-    return {
-      count,
-      inc
-    }
-  }
+    return { currentLocation, nextUserLink }
+  },
 }
 </script>
 

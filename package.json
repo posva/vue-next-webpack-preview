@@ -2,9 +2,11 @@
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server",
-    "build": "webpack --env.prod"
+    "build": "webpack --env.prod",
+    "postinstall": "patch-package"
   },
   "dependencies": {
+    "@posva/vue-router-next": "^0.0.3",
     "vue": "^3.0.0-alpha.1"
   },
   "devDependencies": {
@@ -12,6 +14,8 @@
     "css-loader": "^3.4.0",
     "file-loader": "^5.0.2",
     "mini-css-extract-plugin": "^0.9.0",
+    "patch-package": "^6.2.0",
+    "postinstall-postinstall": "^2.0.0",
     "url-loader": "^3.0.0",
     "vue-loader": "^16.0.0-alpha.1",
     "webpack": "^4.41.4",
